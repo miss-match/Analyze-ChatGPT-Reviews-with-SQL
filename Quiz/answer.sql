@@ -2,7 +2,7 @@
 use missmatch;
 select * from users;
 
--- 1. 현재 리뷰를 작성한 사용자들의 이메일 형식이 지정되어 있지 않아 데이터가 더럽습니다. 데이터를 직접 확인하고 제약 조건을 설정해주세요!
+-- 1. 현재 리뷰를 작성한 사용자들의 이메일 형식이 지정되어 있지 않아 데이터가 너무 더럽잖아! 데이터를 확인해보고 제약조건을 설정 해줘야겠다! 정확하지 않은 데이터는 지워야겠어.
 -- 이메일 형식에 맞지 않는 데이터 확인
 SELECT *
 FROM users
@@ -18,7 +18,7 @@ ALTER TABLE users
 MODIFY mail VARCHAR(50)
 CHECK (mail REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$' OR mail IS NULL);
 
--- 2. 광고 리뷰가 너무 많아! [”도박”, "돈", “사과티비”, "홀덤", "line"]가 담겨있는 스팸 리뷰를 삭제해야겠어.
+-- 2. 광고 리뷰가 너무 많아!가 담겨있는 스팸 리뷰를 삭제해야겠어.
 
 -- 키워드가 포함된 리뷰(review.content) 검색
 SELECT *
@@ -28,7 +28,7 @@ WHERE content REGEXP '도박|돈|사과티비|홀덤|line';
 -- 키워드가 포함된 리뷰컨텐츠를 가진 리뷰 삭제
 DELETE FROM reviews WHERE content REGEXP '도박|돈|사과티비|홀덤|line';
 
--- 3. 나이대 별 부정적인 리뷰의 비율을 구해봐야겠어. (부정적 리뷰: 0~2점)
+-- 3. 나이대 별 부정적인 리뷰의 비율을 구해봐야겠어.
 SELECT 
     CASE 
         WHEN u.age BETWEEN 10 AND 19 THEN '10대'
@@ -54,13 +54,13 @@ GROUP BY
 ORDER BY 
     age_group;
 
--- 4. 한국 사람이 작성한 리뷰만 뽑아서 확인해봐야겠어. (country = KR)
+-- 4. 한국 사람이 작성한 리뷰만 뽑아서 확인해봐야겠어.
 select * from users;
 SELECT userName, content
 from users u join reviews r
 on u.country = 'KR' and u.userId = r.userId
 
--- 5. 앱 버전별로 긍정적인 리뷰의 비율을 구해봐야겠어. (긍정적 리뷰: 3~5점)
+-- 5. 앱 버전별로 긍정적인 리뷰의 비율을 구해봐야겠어.
 SELECT
     reviewCreatedVersion as app_version,
     COUNT(CASE WHEN r.score BETWEEN 3 AND 5 THEN 1 END) AS positive_reviews,
@@ -72,7 +72,7 @@ FROM users u JOIN reviews r
 ON u.userId = r.userId
 GROUP BY reviewCreatedVersion;
 
--- 6. 앱 버전 별, 추천수가 많은 순으로 리뷰를 찾아봐야겠어. 10개만 확인해봐야겠다.
+-- 6. 추천수가 가장 많은 리뷰의 앱 버전을 찾고, 그 앱 버전의 추천수가 높은 상위 10개 리뷰를 확인하고 싶어!
 SELECT * FROM reviews
 WHERE
 	reviewCreatedVersion = (
@@ -82,7 +82,7 @@ WHERE
 				ORDER BY MAX(thumbsUpCount) DESC LIMIT 1)
 ORDER BY thumbsUpCount DESC LIMIT 10;
 
--- 7. 이 리뷰('이 앱 정말 좋아요!') 작성한 사람의 다른 리뷰도 궁금한데? 찾아보자.
+-- 7. 이 리뷰("정말 유용한 앱이에요!")를 작성한 사람의 다른 리뷰도 궁금한데? 찾아보자.
 SELECT
     u.userName,
     score,
