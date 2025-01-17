@@ -82,7 +82,7 @@ WHERE
 				ORDER BY MAX(thumbsUpCount) DESC LIMIT 1)
 ORDER BY thumbsUpCount DESC LIMIT 10;
 
--- 7. 이 리뷰(review_id = 30) 작성한 사람의 다른 리뷰도 궁금한데? 찾아보자.
+-- 7. 이 리뷰('이 앱 정말 좋아요!') 작성한 사람의 다른 리뷰도 궁금한데? 찾아보자.
 SELECT
     u.userName,
     score,
