@@ -15,6 +15,10 @@
   </thead>
   <tbody>
     <tr>
+      <td><strong>DB Version</strong></td>
+      <td>MySQL 8.0.40</td>
+    </tr>
+    <tr>
       <td><strong>IP</strong></td>
       <td>192.168.0.17</td>
     </tr>
