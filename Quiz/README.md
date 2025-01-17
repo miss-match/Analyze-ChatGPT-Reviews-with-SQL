@@ -163,3 +163,5 @@
 > - ("정말 유용한 앱이에요!", reviews.content)에 해당되는 리뷰들을 뽑아보자.
 > - 리뷰들을 작성한 사람들의 아이디(users.userId)을 출력해보자.
 > - 위에 출력된 유저 아이디를 사용하는 사람이 작성한 다른 리뷰들을 출력해보자.
+
+## **👉️[정답 보러가기](https://github.com/miss-match/Analyze-ChatGPT-Reviews-with-SQL/blob/main/Quiz/answer.sql)👈**
